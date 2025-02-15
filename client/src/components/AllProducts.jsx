@@ -4,7 +4,9 @@ import ProductCard from './ProductCard'
 // scss file
 import './AllProducts.scss'
 // react icons
+import { MdOutlineMail } from "react-icons/md";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
+import { RiMapPinUserLine, RiShoppingCartLine, RiSearch2Line } from "react-icons/ri";
 export default function AllProducts() {
     return (
         <>
@@ -25,6 +27,24 @@ export default function AllProducts() {
                     </nav>
                 </nav>
                 <nav className='products-section py-2'>
+                    <header className='search-header mb-3'>
+                        <form action="" className="between w-100">
+                            <nav className="d-flex gap-1 align-items-center p-2 w-75 bg-light" style={{ backgroundColor: "white", borderRadius: "40px" }}>
+                                <label htmlFor="subscribe-btn" className="p-1  rounded-circle" style={{ backgroundColor: "rgba(232, 232, 232, 0.40)" }}>
+                                    <RiSearch2Line size={"30px"} />
+                                </label>
+                                <input type="text" id="subscribe-btn" className="form-control bg-light" placeholder="Search for products" style={{ outline: "none", border: "none" }} />
+                                <button type="submit" className="text-capitalize btn text-light" style={{ backgroundColor: "#C79426", borderRadius: "40px" }}>search</button>
+                            </nav>
+                            <nav className='center gap-2'>
+                                <p className='text-nowrap '>Search by: </p>
+                                <select name="searchBy" id="" className='form-select'>
+                                    <option value="id" className='' selected>id number</option>
+                                    <option value="name" className=''>Name</option>
+                                </select>
+                            </nav>
+                        </form>
+                    </header>
                     <header className='between w-100'>
                         <p>Showing 1-15 of 300 result</p>
                         <nav className='d-flex gap-2 w-25'>
@@ -43,7 +63,7 @@ export default function AllProducts() {
                         <ProductCard />
                     </section>
                     <footer className='d-flex gap-2 justify-content-end'>
-                        <button type='button' className='btn bg-light rounded-circle center p-0'><IoIosArrowRoundBack size={"25px"}/></button>
+                        <button type='button' className='btn bg-light rounded-circle center p-0'><IoIosArrowRoundBack size={"25px"} /></button>
                         <nav className='center gap-2'>
                             <p>1</p>
                             <p>2</p>
@@ -53,7 +73,7 @@ export default function AllProducts() {
                             <p>......</p>
                             <p>14</p>
                         </nav>
-                        <button type='button' className='btn btn-c7 center p-0'><IoIosArrowRoundForward size={"25px"}/></button>
+                        <button type='button' className='btn btn-c7 center p-0'><IoIosArrowRoundForward size={"25px"} /></button>
                     </footer>
                 </nav>
             </section>

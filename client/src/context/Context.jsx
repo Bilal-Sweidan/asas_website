@@ -10,7 +10,7 @@ const UserContext = createContext()
 
 
 
-export const UserProvider = ({ children }) => {
+const UserProvider = ({ children }) => {
 
     const [cookies, removeCookies] = useCookies()
     const [user, setUser] = useState(null)
@@ -22,9 +22,7 @@ export const UserProvider = ({ children }) => {
                 return null
             }
             setLoading(true)
-            const { data } = await axios.post('http://localhost:3000/', {}, {
-                withCredentials: true
-            })
+            const { data } = await userService.verifyCookies()
             const { account } = data
             setUser(account)
             setLoading(false)
@@ -34,15 +32,12 @@ export const UserProvider = ({ children }) => {
     }, [cookies])
 
     const [isPending, setPending] = useState(false)
-    async function fetch_data(e) {
+    async function handleLogin(e) {
         const input = e.target
         const formData = new FormData(input)
         const jsonForm = Object.fromEntries(formData.entries())
         setPending(true)
-        const { data } = await axios.post('http://localhost:3000/login', jsonForm, { withCredentials: true })
-            .catch(err => {
-                console.log(err);
-            })
+        const { data } = await userService.login(jsonForm)
         if (data.success) {
             setUser(data.account)
             console.log(data)
@@ -51,19 +46,22 @@ export const UserProvider = ({ children }) => {
     }
 
     async function logout() {
-        const {data}  = await userService.logout()
-        if (data.success) {
+        const data  = await userService.logout()
+        console.log(data)
+        if (data.status == 200) {
             setUser(null)
         }
     }
     return (
-        <UserContext.Provider value={{ user, setUser, fetch_data, logout, isPending, isLoading }}>
+        <UserContext.Provider value={{ user, setUser, handleLogin, logout, isPending, isLoading }}>
             {children}
         </UserContext.Provider>
     )
 }
-export default UserContext
-// export function useUser() {
-//     return useContext(UserContext)
-// }
+
+const AuthContext = {
+    UserContext,
+    UserProvider
+}
+export default AuthContext
 

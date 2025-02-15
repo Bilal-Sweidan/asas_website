@@ -3,20 +3,16 @@ import { Children, createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 
-const languageContext = createContext()
+export const LanguageContext = createContext()
 
-const languageProvider = ({children}) => {
-    const [language,setLanguage] = useState(window.localStorage.language)
-
-    const changeLanguage = (selectedLanguage) => {
-        setLanguage(selectedLanguage)
-    }
-
+export const LanguageProvider = ({children}) => {
+    const [language,setLanguage] = useState(window.localStorage.language || "ar")
+    window.localStorage.language = language
     return (
-        <languageContext.Provider value={{language , changeLanguage}}>
+        <LanguageContext.Provider value={{language , setLanguage}}>
             {children}
-        </languageContext.Provider>
+        </LanguageContext.Provider>
     )
 }
 
-export default languageContext
+// export default languageContext

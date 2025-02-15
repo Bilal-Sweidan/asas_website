@@ -7,7 +7,6 @@ const backendUrl =  "http://localhost:4000"
 const getHomeProduct = async () => {
     try{
         const response = await axiosInstance.get(`/api/products`) 
-        console.log(response.data)
         return response.data
     }catch(err){
         throw new Error(err)

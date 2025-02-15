@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
     updatedAt : {
         type : Date,
         default : Date.now()
+    },
+    isFirstVisit : {
+        type : Boolean,
+        default : true
     }
 })
 

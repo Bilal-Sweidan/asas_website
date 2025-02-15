@@ -31,31 +31,42 @@ router.post('/register', async (req,res) => {
     }
 })
 
-router.post('/signin',async (req,res) => {
+router.post('/login',async (req,res) => {
     console.log(req.body)
-    const {username,email,password} = req.body
-    // try{
-    //     const account = await Account.findOne({username})
-    //     if(user){
-    //         if(compare(password,user.password)){
-    //             const accessToken = jwt.sign({ account }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
-    //             res.cookie("token", accessToken, {
-    //                 withCredentials: true,
-    //                 httpOnly: false,
-    //                 maxAge: 24 * 60 * 60 * 1000
-    //             });
-    //             req.user = account
-    //             res.status(200).json({ account, message: "User logged in successfully", success: true });
-    //         }else{
-    //             res.status(401).json({message : "wrong password"})
-    //         }
-    //     }else{
-    //         res.status(404).json({message : ""})
-    //     }
-    // }catch(err){
-    //     res.status(500).json({message : err.message})
-    //     console.log(err)
-    // }
+    const {email,password} = req.body
+    try{
+        const account = await Account.findOne({email})
+        if(account){
+            if(compare(password,account.password)){
+                const accessToken = jwt.sign({ account }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+                res.cookie("token", accessToken, {
+                    withCredentials: true,
+                    httpOnly: false,
+                    maxAge: 24 * 60 * 60 * 1000
+                });
+                req.user = account
+                res.status(200).json({ account, message: "User logged in successfully", success: true });
+            }else{
+                res.status(401).json({message : "wrong password"})
+            }
+        }else{
+            res.status(404).json({message : ""})
+        }
+    }catch(err){
+        res.status(500).json({message : err.message})
+        console.log(err)
+    }
+})
+
+router.get('/logout' , async (req,res) => {
+    try{
+        console.log('logged out')
+        req.user = null
+        res.clearCookie('token').status(200).json({ success: true, message: 'User logged out successfully' })
+        // حسب فهمي عندما يكون ال get عندها يجب ان يكون هناك رد json
+    }catch(err){
+        res.status(500).json({message : err.message})
+    }
 })
 
 
