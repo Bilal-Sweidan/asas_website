@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useProductDetails from '../hooks/useProductDetails'
+import { Outlet, Link, useLocation, useParams } from 'react-router';
 
 // components
 import SecondHeader from './SecondHeader'
@@ -10,14 +10,26 @@ import { LiaShareAltSolid } from "react-icons/lia";
 import { RiShoppingCartLine } from "react-icons/ri";
 // scss file
 import './Product.scss'
-import { Outlet, Link, useLocation } from 'react-router';
 import ProductCard from './ProductCard';
 
+// hooks
+import useProductDetails from '../hooks/useProductDetails'
+import useCart from '../hooks/useCart'
+
+// cart service
+import cartService from "../services/cartService"
 
 export default function Product() {
-    const { details, loading, error } = useProductDetails()
-
     const [counter, setCounter] = useState(1)
+    // use hooks
+    const { details, loading } = useProductDetails()
+
+    const { addToCart, isLoading } = useCart()
+
+    const { cartItems } = useCart()
+
+    const { id } = useParams()
+
     return (
         <>
             <SecondHeader text={"Product"} />
@@ -49,7 +61,7 @@ export default function Product() {
                         <p style={{ color: "#666" }}>140 Reviews 431 sold</p>
 
                     </div>
-                    <form action="">
+                    <form action="" method='dialog'>
                         <div className="counter my-4 p-1 d-flex gap-2 justify-content-between">
                             <button type='button' className='btn py-0 px-1 rounded-circle center pointer' onClick={() => { setCounter(counter - 1) }}>-</button>
                             {counter}
@@ -57,7 +69,7 @@ export default function Product() {
                         </div>
                         <div className='d-flex gap-2'>
                             <button type='button' className='btn text-capitalize btn-c7'>contact now</button>
-                            <button type='button' className='btn btn-icon center rounded-circle p-0'><RiShoppingCartLine size={"20px"} /></button>
+                            <button type='button' className='btn btn-icon center rounded-circle p-0' onClick={() => { addToCart(id, "black", counter);}}><RiShoppingCartLine size={"20px"} /></button>
                             <button type='button' className='btn btn-icon center rounded-circle p-0'><LiaShareAltSolid size={"25px"} /></button>
                         </div>
                     </form>

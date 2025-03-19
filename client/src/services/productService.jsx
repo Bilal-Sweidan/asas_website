@@ -16,15 +16,28 @@ const getHomeProduct = async () => {
 const getProductDetails = async (productId) => {
     try{
         const {data} = await axiosInstance.get(`/api/product/${productId}`)
-        console.log(data)
         return data
     }catch(err){
         throw new Error(err)
     }
 }
 
+const getSearchedProducts = async (productId = "",productName = "") => {
+    try{
+        const res = await axiosInstance.get('/api/products/search',{
+            params : {
+                id : productId,
+                name : productName
+            }
+        })
+        return res
+    }catch(err) {
+        throw new Error(err)
+    }
+}
 const productService = {
     getHomeProduct,
-    getProductDetails
+    getProductDetails,
+    getSearchedProducts
 }
 export default productService

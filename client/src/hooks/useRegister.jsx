@@ -22,7 +22,7 @@ const useRegister = () => {
             setPending(false)
         }
     }
-    return {register,pending,error}
+    return { register, pending, error }
 }
 
 export default useRegister

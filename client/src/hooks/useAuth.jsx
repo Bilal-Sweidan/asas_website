@@ -1,6 +1,7 @@
 import { useState } from "react"
 // services
 import userService from "../services/userService"
+
 const useAuth = async (e) => {
     const [isPending, setPending] = useState(true)
     const [user, setUser] = useState()

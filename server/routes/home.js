@@ -15,7 +15,9 @@ const userAuthentication = require('../middlewares/userAuthentication')
 
 
 
-router.post('/',userAuthentication)
+router.post('/',userAuthentication, (req,res) => {
+    res.json(req.user)
+})
 
 
 

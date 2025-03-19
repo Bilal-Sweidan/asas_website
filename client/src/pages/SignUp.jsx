@@ -14,6 +14,7 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const {register,pending,error} = useRegister()
+    console.log(register)
     async function handleRegister(e) {
         const res = await register(e)
         console.log(res)

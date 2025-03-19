@@ -12,7 +12,6 @@ const useProductDetails = () => {
     const {id} = useParams()
     const getProduct =  async () => {
         try{
-            console.log(id)
             const data = await productService.getProductDetails(id) 
             setDetails(data)
         }catch(err){

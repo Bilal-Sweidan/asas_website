@@ -8,15 +8,17 @@ import useHomeProducts from "../hooks/useHomeProducts"
 import { useEffect, useState } from "react";
 // scss file
 import './ProductCard.scss'
-
-import axios from "axios";
+// components
+import LoadingProductCard from "./Loading/LoadingProductCard";
 export default function ProductCard() {
     const { products, loading, error } = useHomeProducts()
-    if(!products){
-        return <p>no products</p>
-    }
     if(loading){
-        return <p>Loading........</p>
+        return (
+            <>
+                <LoadingProductCard />
+                <LoadingProductCard />
+            </>
+        )
     }
     return (
         products?.map((product, index) => (

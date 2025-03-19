@@ -1,15 +1,16 @@
+const express = require('express')
 const jwt = require('jsonwebtoken')
 const userAuthentication = (req, res, next) => {
     const token = req.cookies.token
     if (!token) {
-        return res.status(403)
+        return res.status(401).json({ success: false, message: "Unauthorized. No token provided." });
     }
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             console.log(err)
-            return res.clearCookie('token').status(400)
+            return res.clearCookie('token')
         }
-        res.json(user)
+        req.user = user
         next()
     })
 }

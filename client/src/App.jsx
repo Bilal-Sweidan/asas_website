@@ -16,6 +16,7 @@ import SignUp from './pages/SignUp'
 // Context
 import AuthContext from './context/Context'
 import { LanguageContext, LanguageProvider } from './context/languageContext'
+import AddingProduct from './components/Admin/AddingProduct'
 
 const NoUser = ({ children }) => {
   const { user, isLoading } = useContext(AuthContext.UserContext)
@@ -36,6 +37,43 @@ const NoUser = ({ children }) => {
     return children
   }
 }
+const AdminRole = ({ children }) => {
+  const { user, isLoading } = useContext(AuthContext.UserContext)
+  console.log(user)
+  const location = useLocation()
+  if (isLoading) {
+    return (
+      <>
+        <p>
+          loading..................
+        </p>
+      </>
+    )
+  }
+  if (user.role == 'admin') {
+    return children
+  } else {
+    return <p className='text-center text-uppercase h3'>access has been <span className='text-danger'>blocked</span> </p>
+  }
+}
+// const UserRole = () => {
+//   const { user, isLoading } = useContext(AuthContext.UserContext)
+//   const location = useLocation()
+//   if (isLoading) {
+//     return (
+//       <>
+//         <p>
+//           loading..................
+//         </p>
+//       </>
+//     )
+//   }
+//   if (user?.role === 'admin') {
+//     return <>admin</>
+//   } else {
+//     return <Index />
+//   }
+// }
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,7 +95,11 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <AllProducts />
+        element: <AllProducts />,
+      },
+      {
+        path: 'product/add',
+        element: <AdminRole> <AddingProduct /></AdminRole>
       },
       {
         path: "about",
