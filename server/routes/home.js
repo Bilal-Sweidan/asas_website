@@ -43,8 +43,10 @@ router.post('/login', async (req, res) => {
                 const accessToken = jwt.sign({ account }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
                 res.cookie("token", accessToken, {
                     withCredentials: true,
-                    httpOnly: false,
-                    maxAge: 24 * 60 * 60 * 1000
+                    httpOnly: true,
+                    maxAge: 24 * 60 * 60 * 1000,
+                    sameSite: 'none', // Needed if frontend/backend are on different domains
+                    domain: '.onrender.com' // Set if using subdomains
                 });
                 req.user = account
                 res.status(200).json({ account, message: "User logged in successfully", success: true });

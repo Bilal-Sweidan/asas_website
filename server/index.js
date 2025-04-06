@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require("path")
-const env = require('dotenv').config({ path: path.join(__dirname, '..\\.env') })
+const env = require('dotenv').config()
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
