@@ -1,7 +1,6 @@
 // search service
 import { useState } from "react"
 import productService from "../services/productService"
-import { model } from "mongoose"
 const useSearch = () => {
     const [isLoading, setLoading] = useState()
     const [searchRes, setSearchRes] = useState()
