@@ -11,7 +11,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://arraik-store-fron-end.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }))
@@ -24,10 +24,10 @@ const api = require('./routes/API')
 const cart = require('./routes/cart')
 
 
-app.use('/uploads',express.static(path.join(__dirname,'uploads')))
-app.use('/',home)
-app.use('/api',api)
-app.use('/api/cart',cart)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/', home)
+app.use('/api', api)
+app.use('/api/cart', cart)
 
 
 
