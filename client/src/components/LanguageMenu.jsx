@@ -9,7 +9,7 @@ export default function LanguageMenu({setLangWindow}) {
         setLangWindow(false)
     }
     return (
-        <div className='card position-absolute px-4 py-2 center' style={{top : "55px"}}>
+        <div className='card position-absolute px-4 py-2 center z-3' style={{top : "55px"}}>
             <ul className='list-unstyled z-3'>
                 <li className='pointer' onClick={() => changeLanguage("ar")}>العربية</li>
                 <li className='pointer' onClick={() => changeLanguage("en")}>English</li>

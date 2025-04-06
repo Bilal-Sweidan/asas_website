@@ -13,11 +13,25 @@ import AuthContext from '../context/Context';
 // hooks
 import useSearch from '../hooks/useSearch';
 import LoadingProductCard from './Loading/LoadingProductCard';
+
+
+// material ui
+import {
+    Box,
+    TextField,
+    IconButton,
+    InputAdornment,
+    Paper,
+    Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
+
 export default function AllProducts() {
     const { user } = useContext(AuthContext.UserContext)
 
     const { search, searchRes, isLoading, error } = useSearch()
-    const [searchWord,setSearchWord] = useState()
+    const [searchWord, setSearchWord] = useState()
     return (
         <>
             <SecondHeader text="products" />

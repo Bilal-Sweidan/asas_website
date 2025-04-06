@@ -40,6 +40,33 @@ const logout = async () => {
     }
 }
 
+const forgetPassword = async (email) => {
+    try {
+        const res = await axiosInstance.post('/api/forget-password', { email })
+        return res
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+const resetPassword = async (token, password) => {
+    try {
+        const res = await axiosInstance.post(`/api/reset-password/${token}`, { password })
+        return res
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+const changePassword = async (currentPassword, newPassword) => {
+    try {
+        const res = await axiosInstance.put('/api/change-password', { currentPassword, newPassword }, { withCredentials: true })
+        return res
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
 const verifyCookies = async () => {
     try {
         const data = await axiosInstance.post('/', {}, { withCredentials: true })
@@ -55,7 +82,10 @@ const userService = {
     logout,
     login,
     signUp,
-    verifyCookies
+    verifyCookies,
+    forgetPassword,
+    resetPassword,
+    changePassword
 }
 
 export default userService

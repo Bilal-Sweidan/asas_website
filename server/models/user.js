@@ -49,7 +49,9 @@ const userSchema = new mongoose.Schema({
     isFirstVisit : {
         type : Boolean,
         default : true
-    }
+    },
+    resetPasswordToken : String,
+    resetPasswordExpires : Date
 })
 
 // hashing password

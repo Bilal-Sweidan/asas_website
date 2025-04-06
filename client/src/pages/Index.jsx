@@ -16,7 +16,7 @@ import AuthContext from '../context/Context'
 import './Index.scss'
 import useCart from "../hooks/useCart";
 import CartWindow from "../components/CartWindow";
-import CategoriesHeader from "../components/layout/Headers/CategoriesHeader";
+import { CategoriesHeader } from "../components/layout/User/Headers";
 
 export default function Index() {
 
@@ -41,7 +41,7 @@ export default function Index() {
     // user context
     const { user, setUser, logout } = useContext(AuthContext.UserContext)
     // cart window
-    const [cartWindow,setCartWindow] = useState(false)
+    const [cartWindow, setCartWindow] = useState(false)
     return (
         <main className="position-relative">
             <header className='text-nowrap d-flex justify-content-between position-fixed z-3 w-100' style={{ padding: "0 5rem", backgroundColor: "#2D5356" }}>

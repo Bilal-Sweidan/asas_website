@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 
 // services
 import userService from "../services/userService";
+import { useNavigate } from "react-router";
 
 const UserContext = createContext()
 
@@ -33,24 +34,30 @@ const UserProvider = ({ children }) => {
 
     const [isPending, setPending] = useState(false)
     async function handleLogin(e) {
-        const input = e.target
-        const formData = new FormData(input)
-        const jsonForm = Object.fromEntries(formData.entries())
         setPending(true)
-        const { data } = await userService.login(jsonForm)
-        if (data.success) {
-            setUser(data.account)
-            console.log(data)
+        try {
+            const input = e.target
+            const formData = new FormData(input)
+            const jsonForm = Object.fromEntries(formData.entries())
+            const { data } = await userService.login(jsonForm)
+            if (data.success) {
+                setUser(data.account)
+            }
+        } catch (err) {
+            throw new Error(err)
+        } finally {
+            setPending(false)
         }
-        setPending(false)
     }
 
     async function logout() {
-        const data  = await userService.logout()
+        const data = await userService.logout()
         console.log(data)
         if (data.status == 200) {
             setUser(null)
+            return true
         }
+        return false
     }
     return (
         <UserContext.Provider value={{ user, setUser, handleLogin, logout, isPending, isLoading }}>

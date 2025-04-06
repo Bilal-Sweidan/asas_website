@@ -6,13 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client  && npm run dev",
-    "build-client" : "cd client && npm run build",
+    "build-client": "cd client && npm run build",
     "install-client": "cd client && npm install",
-    
-    
     "server": "cd server && npm run start",
-    "install-server" : "cd server && npm install",
-    "start-server" : "cd server && node index.js"
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && node index.js"
   },
   "author": "Bilal Sweidan",
   "license": "ISC",
@@ -22,6 +20,7 @@
     "express-session": "^1.18.1",
     "mongoose": "^8.9.5",
     "nodemailer": "^6.9.16",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "use-react-router-breadcrumbs": "^4.0.1"
   }
 }

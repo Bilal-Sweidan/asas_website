@@ -1,5 +1,9 @@
+// css file
 import './App.css'
-
+// css font file
+import './Fonts.css'
+// css color file
+import './color.css'
 // react router
 import { createBrowserRouter, RouterProvider, useLocation, Navigate } from "react-router"
 import Index from './pages/Index'
@@ -17,6 +21,12 @@ import SignUp from './pages/SignUp'
 import AuthContext from './context/Context'
 import { LanguageContext, LanguageProvider } from './context/languageContext'
 import AddingProduct from './components/Admin/AddingProduct'
+import ResetPassword from './pages/ResetPassword'
+
+// pages
+import { AdminPage } from './pages/Admin/main'
+import { SalesDash, CreateProduct } from './pages/Admin/dashboards'
+import { Setting, Passwords , SocialMedia } from './pages/Admin/setting'
 
 const NoUser = ({ children }) => {
   const { user, isLoading } = useContext(AuthContext.UserContext)
@@ -32,6 +42,7 @@ const NoUser = ({ children }) => {
     )
   }
   if (user) {
+    console.log("block the user")
     return <Navigate to="/" state={{ from: location }} replace />
   } else {
     return children
@@ -50,34 +61,34 @@ const AdminRole = ({ children }) => {
       </>
     )
   }
-  if (user.role == 'admin') {
+  if (user?.role == 'admin') {
     return children
   } else {
     return <p className='text-center text-uppercase h3'>access has been <span className='text-danger'>blocked</span> </p>
   }
 }
-// const UserRole = () => {
-//   const { user, isLoading } = useContext(AuthContext.UserContext)
-//   const location = useLocation()
-//   if (isLoading) {
-//     return (
-//       <>
-//         <p>
-//           loading..................
-//         </p>
-//       </>
-//     )
-//   }
-//   if (user?.role === 'admin') {
-//     return <>admin</>
-//   } else {
-//     return <Index />
-//   }
-// }
+const UserRole = () => {
+  const { user, isLoading } = useContext(AuthContext.UserContext)
+  const location = useLocation()
+  if (isLoading) {
+    return (
+      <>
+        <p>
+          loading..................
+        </p>
+      </>
+    )
+  }
+  if (user?.role === 'admin') {
+    return <Navigate to='/admin' replace />
+  } else {
+    return <Index />
+  }
+}
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
+    element: <UserRole />,
     children: [
       {
         path: "",
@@ -114,6 +125,49 @@ const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <NoUser><SignUp /></NoUser>
+  },
+  {
+    path: "/reset-password/:token",
+    element: <ResetPassword />
+  },
+  // admin routers
+  {
+    path: "/admin",
+    element: <AdminRole><AdminPage /></AdminRole>,
+    children: [
+      {
+        path: "dashboard",
+        children: [
+          {
+            path: "sales",
+            element: <SalesDash />
+          }
+        ]
+      },
+      {
+        path: "products",
+        children: [
+          {
+            path: "create-product",
+            element: <CreateProduct />
+          }
+        ]
+      },
+      {
+        path: "setting",
+        element: <Setting />,
+        children: [
+          {
+            path: "password",
+            element: <Passwords />
+          },
+          {
+            path : 'social-media',
+            element : <SocialMedia />
+          }
+        ]
+      }
+    ]
   }
 ])
 
