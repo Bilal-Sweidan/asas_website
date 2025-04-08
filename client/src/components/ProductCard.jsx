@@ -5,7 +5,6 @@ import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router";
 // hooks
 import useHomeProducts from "../hooks/useHomeProducts"
-import { useEffect, useState } from "react";
 // scss file
 import './ProductCard.scss'
 // components
@@ -30,7 +29,7 @@ export default function ProductCard() {
                     </div>
                 </nav>
                 {/* `http://localhost:4000/uploads/${product?.image[0]}` || */}
-                <img src={ `https://arraik-store.onrender.com/uploads/${product?.image[0]}`} alt="" className="mx-auto" />
+                <img src={  `http://localhost:4000/uploads/${product?.image[0]}` || `https://arraik-store.onrender.com/uploads/${product?.image[0]}`} alt="" className="mx-auto" />
                 <nav className='between text-light px-2 position-absolute w-100' style={{ height: "70px", top: "calc(100% - 70px)", borderRadius: "0 0 4px 4px", backgroundColor: "#2D5356" }}>
                     <nav>
                         <p className="product-name">{product?.name}</p>

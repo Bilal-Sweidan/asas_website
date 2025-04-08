@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require("path")
-const env = require('dotenv').config()
+const env = require('dotenv').config({ path: path.join(__dirname, '..\\.env') })
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
@@ -11,10 +11,9 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors({
-    origin: ["http://localhost:5173", "https://arraik-store-fron-end.onrender.com"],
+    origin: ["http://localhost:5173" , "https://arraik-store-fron-end.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    exposedHeaders: ['set-cookie']
 }))
 // config
 const connectDB = require('./config/db')
@@ -25,10 +24,10 @@ const api = require('./routes/API')
 const cart = require('./routes/cart')
 
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use('/', home)
-app.use('/api', api)
-app.use('/api/cart', cart)
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
+app.use('/',home)
+app.use('/api',api)
+app.use('/api/cart',cart)
 
 
 
